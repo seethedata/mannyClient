@@ -1,0 +1,28 @@
+<html>
+	<head>
+	<script>
+		var exampleSocket;
+		function runDemo() {
+			exampleSocket = new WebSocket("ws://localhost:8080/echo" );
+			exampleSocket.onopen = function (event) {
+				var m = document.getElementById("message").value;
+				exampleSocket.send(m);
+			};
+			exampleSocket.onmessage = function(event) {
+				var f = document.getElementById("response");
+				f.innerHTML=event.data;
+			}
+		}
+
+		function endDemo() {
+			exampleSocket.close();
+		}
+	</script>
+	</head>
+	<body>
+		<div id="response" style="height:30px"></div>
+		<input type="text" id="message" value="Default"></input>
+		<button onClick="runDemo()">Run Demo</button>
+		<button onClick="endDemo()">End Demo</button>
+	</body>
+</html>
